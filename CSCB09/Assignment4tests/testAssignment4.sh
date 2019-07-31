@@ -23,18 +23,25 @@ echo; echo TEST 3: gibberish-large.txt
 ./client 127.0.0.1 12121 gibberish-large.txt new_gibb-large.txt
 val3=$(diff gibberish-large.txt new_gibb-large.txt)
 if [ "$val3" != "" ]; then echo Failed test 3: There were errors calling with gibberish-large.txt; 
-else echo Passed test 3; rm new_gibb-large.txt fi;
+else echo Passed test 3; rm new_gibb-large.txt; fi;
 
-echo; echo TEST 4: SHOULD NOT ASSIGN THE REQUESTED ADDRESS:
-./client 127.0.0.1 00000 lorem.txt new_lorem.txt
+echo; echo TEST 4: empty.txt
+./client 127.0.0.1 12121 empty.txt new_empty.txt
+val4=$(diff empty.txt new_empty.txt)
+if [ "$val4" != "" ]; then echo Failed test 4: There were errors calling with empty.txt; 
+elif [ ! -e new_empty.txt ]; then echo "Failed test 4: Should have created a new empty file."; 
+else echo Passed test 4; rm new_empty.txt; fi;
 
-echo; echo TEST 4.5: SHOULD REFUSE THE CONNECTION:
+echo; echo TEST 5: SHOULD NOT ASSIGN THE REQUESTED ADDRESS:
+./client a.a.a.a 12121 lorem.txt new_lorem.txt
+
+echo; echo TEST 5.5: SHOULD REFUSE THE CONNECTION:
 ./client 127.0.0.1 1212 lorem.txt new_lorem.txt
 
-echo; echo TEST 5: SHOULD COMPLAIN ABOUT TOO FEW PARAMETERS
+echo; echo TEST 6: SHOULD COMPLAIN ABOUT TOO FEW PARAMETERS
 ./client 127.0.0.1 12121 lorem.txt
 
-echo; echo TEST 6: NOT CREATING FILES IF SERVER DOES NOT SEND
+echo; echo TEST 7: NOT CREATING FILES IF SERVER DOES NOT SEND
 ./client 127.0.0.1 12121 random000.ppp TSNE.txt
-if [ -e TNSE.txt ]; then echo Failed test 6: should not create new files if server could not send it!; rm TSNE.txt;
-else echo Passed test 6; fi;
+if [ -e TSNE.txt ]; then echo Failed test 7: should not create new files if server could not send it!; rm TSNE.txt;
+else echo Passed test 7; fi;
