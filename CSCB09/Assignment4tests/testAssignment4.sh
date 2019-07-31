@@ -32,8 +32,11 @@ if [ "$val4" != "" ]; then echo Failed test 4: There were errors calling with em
 elif [ ! -e new_empty.txt ]; then echo "Failed test 4: Should have created a new empty file."; 
 else echo Passed test 4; rm new_empty.txt; fi;
 
-echo; echo TEST 5: SHOULD NOT ASSIGN THE REQUESTED ADDRESS:
+echo; echo TEST 5: SHOULD COMPLAIN ABOUT INVALID IPv4 ADDRESS:
 ./client a.a.a.a 12121 lorem.txt new_lorem.txt
+
+echo; echo TEST 5.25: SHOULD NOT ASSIGN THE REQUESTED ADDRESS:
+./client 127.0.0.1 00000 lorem.txt new_lorem.txt
 
 echo; echo TEST 5.5: SHOULD REFUSE THE CONNECTION:
 ./client 127.0.0.1 1212 lorem.txt new_lorem.txt
@@ -45,3 +48,7 @@ echo; echo TEST 7: NOT CREATING FILES IF SERVER DOES NOT SEND
 ./client 127.0.0.1 12121 random000.ppp TSNE.txt
 if [ -e TSNE.txt ]; then echo Failed test 7: should not create new files if server could not send it!; rm TSNE.txt;
 else echo Passed test 7; fi;
+
+echo; echo TEST 8: SHOULD COMPLAIN ABOUT BEING UNABLE TO WRITE
+chmod -w cannotwrite.txt
+./client 127.0.0.1 12121 lorem.txt cannotwrite.txt
