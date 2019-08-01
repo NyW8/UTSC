@@ -44,11 +44,11 @@ echo; echo TEST 5.5: SHOULD REFUSE THE CONNECTION:
 echo; echo TEST 6: SHOULD COMPLAIN ABOUT TOO FEW PARAMETERS
 ./client 127.0.0.1 12121 lorem.txt
 
-echo; echo TEST 7: NOT CREATING FILES IF SERVER DOES NOT SEND
+echo; echo TEST 7: SHOULD COMPLAIN ABOUT BEING UNABLE TO WRITE
+chmod -w cannotwrite.txt
+./client 127.0.0.1 12121 lorem.txt cannotwrite.txt
+
+echo; echo TEST 8: NOT CREATING FILES IF SERVER DOES NOT SEND
 ./client 127.0.0.1 12121 random000.ppp TSNE.txt
 if [ -e TSNE.txt ]; then echo Failed test 7: should not create new files if server could not send it!; rm TSNE.txt;
 else echo Passed test 7; fi;
-
-echo; echo TEST 8: SHOULD COMPLAIN ABOUT BEING UNABLE TO WRITE
-chmod -w cannotwrite.txt
-./client 127.0.0.1 12121 lorem.txt cannotwrite.txt
