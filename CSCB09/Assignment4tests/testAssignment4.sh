@@ -52,3 +52,6 @@ echo; echo TEST 8: NOT CREATING FILES IF SERVER DOES NOT SEND
 ./client 127.0.0.1 12121 random000.ppp TSNE.txt
 if [ -e TSNE.txt ]; then echo Failed test 7: should not create new files if server could not send it!; rm TSNE.txt;
 else echo Passed test 8; fi;
+
+echo; echo ALL OF THE ABOVE TESTS SHOULD ONLY PRINT 'PASSED TEST #'.
+echo IF THERE ARE ERRORS TOO, THESE TESTS DO NOT INDICATE THAT IT WORKED.
