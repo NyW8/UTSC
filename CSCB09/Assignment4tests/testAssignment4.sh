@@ -7,6 +7,7 @@ gcc -g -w client.c -o client
 if [ ! -e lorem.txt -o ! -e gibberish.txt -o ! -e gibberish-large.txt ]; then echo "Please download ALL the testing files please!"; fi;
 
 echo Opening client port at 12121, PLEASE HAVE SERVER SET UP BEFOREHAND
+echo YOU MUST RUN THE SERVER IN A SEPARATE BASH SHELL AT THE SAME TIME AS THIS FILE RUNS.
 echo; echo TEST 1: lorem.txt
 ./client 127.0.0.1 12121 lorem.txt new_lorem.txt
 val1=$(diff lorem.txt new_lorem.txt)
