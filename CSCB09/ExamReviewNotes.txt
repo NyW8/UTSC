@@ -1,0 +1,77 @@
+Created by Nyah Way August 10, 2019
+Exam review material for CSCB09 Summer 2019
+This contains things that might be important concepts, but are not neccessarily on the review sheet given to us
+
+BASH FILE TESTING:
+	#note the spaces before/after the brackets '[' and ']'
+	#options: w - writable, x - executable, e - path exists, f - is a file
+			d - is a directory, n - nonempty, z - empty
+	if [ -option path ]; then #dostuffhere
+	fi
+
+PATTERN MATCHING: 
+	* - any string
+	? - any single character
+	[ace] - any of 'a', 'c', or 'e'
+	[!0-9] - any nondigit (! means 'not')
+	\ - escape the next character (e.g. to write *, you write \*)
+		note: there is no escape possible for '$'
+
+ENVIRONMENT VARIABLES:
+	unset MY_VAR - undefines the variable MY_VAR
+	export MY_VAR=val - defines a new environment variable to be the value of val
+	
+C HEADER FILES:
+	header files contain function definitions, type definitions, and global variables etc.
+	they do NOT contain code, the linker must find the code itself
+	users call #include "name.h"
+	
+STACK vs HEAP:
+	the stack holds function calls and local variables (used for recursive calls)
+	the heap holds variables created from malloc/calloc and has other uses
+		note: freeing variables more than once can create an issue in the heap)
+
+FILE INPUT/OUTPUT:
+	FILE * - refers to a type representing the stream state
+	EOF - #26, an indicator that we have reached the end of stream, this can be the end of a file or the end of input from stdin, etc
+		  note: EOF cannot be converted to char, so often better to take in an int and convert to char after checking for EOF
+
+BUFFERING:
+	wait for a large chunk of data before writing to a stream (can override this)
+	int fflush(FILE *stream) - 0 if success to write to stream, EOF if error
+	
+COMIPLER STAGES:
+	1. Preprocessor: #directives (you can see what it does by using gcc -E)
+	2. Compiler proper: converts C code to machine code or object files (use gcc -c)
+	3. Linker: merge object files and libraries into one executable file (don't use this directly)
+	
+MAKEFILES:
+	program.o: program.c program.h dependency.h 	#things to build program.o from
+			gcc -c program.c
+	
+	OR:
+	
+	all: program1 program2.exe			#all files to gcc require these
+	.PHONY all							#let it know that 'all' is a label, not a file to create
+	clean:
+		rm -f *.o program1 program2.exe #delete everything so we can recreate it (run 'make clean' to actually run it)
+	.PHONY clean						#let it know that 'clean' is a label, not a file to create
+	file1.o: dependencies1.o			#these are what file1 needs to run
+	file2.o: dependencies2.o			#these are what file2 needs to run
+	%.o: %.c							#now make all of the above files with two lines!
+		gcc -g -c $<					# '$^' - all prerequisites, '$@' - target to build, '$<' - first prerequisite
+
+INODES:
+	files systems have arrays of these
+	store type of file, permissions, owners, size, timestamps, etc
+	DOES NOT store filename itself, only directory contains those
+	
+LINKING:
+	hard link - call 'ln'
+				creates another file with the same inode
+				cannot link directories
+				when unlinking, kernel decreases reference count and frees the disk space & inode number if count is now 0
+	soft link - call 'ln -s'
+				stores a path to the 'linked' file
+				if original is deleted, soft link is also deleted
+
