@@ -75,3 +75,22 @@ LINKING:
 				stores a path to the 'linked' file
 				if original is deleted, soft link is also deleted
 
+FILE DESCRIPTORS:
+	each process has a finite file descriptor table for open files
+	standard fds: 0 - stdin, 1 - stdout, 2 - stderr
+	the process fd table maps to a system-wide table
+	
+SOCKETS:
+	used to communicate between processes (can be on different computers too!)
+	one side is a server with a public address (loopback address is 127.0.0.1)
+	other side is a client, finds the server using it's address
+	2-way communication (pipes were 1-way only)
+	server: 1. call socket
+			2. fill out address struct (bind server file descriptor to address)
+			3. call listen
+			4. loop over: accept, talk to client, close
+	client: 1. call socket
+			2. fill out address struct
+			3. call connect (connect to server at given address)
+			4. talk to server
+			5. close file descriptor (so server knows its done)
