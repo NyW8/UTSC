@@ -70,25 +70,37 @@
 	String a = "hi"; a = "hello";
 //	- NOT valid
 
+//Classes
+	int i = ___; String val = String.valueOf(i);	//turns an int to a string
+	System.out.println(Integer.BYTES);				//prints the number of bytes of an integer
+//	- automatic de-allocation when variable doesn't refer to anything, don't need to free anything
+//	- can explicitly de-allocate by setting a variable to null
 
+//Arrays pt 1
+//	- array length can't be changed
+//	- all elements must be of the same type
+//	- arrays are reference types, not primitive types
+	int[] nums;			//an array of ints, nums is a variable that refers to the array
+	nums = new int[5];	//all indices contain default value, 0
+	int[] nums = {1,2,7,109,888};	//array holds {1,2,7,109,888}
+	nums[1] = 81;					//array holds {1,81,7,109,888}
+//	- no negative indices, no slicing
+//	- add different types into same array:
+	Object[] rand = new Object[5];
+	rand[0] = new String("hello"); rand[1] = new Integer(1000); rand[2] = new Monster("Fred");
+	rand[3] = new int[50];			//array inside an array
+	Object element = rand[0];		//add the first element into another variable
+	String element = rand[0];			//DOESN'T WORK, even if rand[0] is a string
+	String element = (String)rand[0];	//works if rand[0] can be typecast to a string
+	int[][] table;					// 2D array
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+//Alias pt 1
+//	- can only create an alias with a MUTABLE reference type (primitives don't create objects)
+//	- If object is immutable (e.g. strings), changing string creates a copy
+//	- if alias object changes, original still points to it
+//	- careful with double & farther aliases (e.g. array of array of strings)
+//	- primitive types are compared by VALUES and class types are compared by REFERENCES
+
 	
 	
 	
