@@ -101,13 +101,65 @@
 //	- careful with double & farther aliases (e.g. array of array of strings)
 //	- primitive types are compared by VALUES and class types are compared by REFERENCES
 
+//Control Structures
+	if (variable > 500){
+		doStuff();
+	} else if (variable > 400) {
+		doOtherStuff();
+	} else {
+		doMoreStuff();
+	}
+	if (variable > 500)
+		doStuff();			//good for one line inside only
+	while (variable > 500){ 
+		variable -= 1;
+	}
+	for (initialization; termination; increment){
+		//do stuff here
+	}
+	for (Object item : listOfItems){
+		//do stuff
+	}
+	do {						//makes sure loop will run at least once
+		//stuff
+	} while (condition);		//note semicolon
 	
+//While loops pt 1
+	i++;	//checks value, then increments
+	++i;	//increments, then checks value
+	while(array[i++] < 7) ...
 	
-	
-	
-	
-	
-	
-	
-	
+//Classes pt 1
+//	- two types of variables declared outside method: instance and class variables
+//	- instance vars: come into existance when a new object of that class is constructed
+//	- class vars: shared by all instances of a class (denoted by saying 'static')
+//	- constraints (for values, relationships, etc) should be recorded
+//		- MUST hold true before (assumed) and after (check!) a method runs
+//	- constructors have same name as class and are called automatically
+//		- NO return type (not even void)
+//		- can overload constructors (to make multiple!)
+//		- to call other constructors, call 'this(arguments_here)'
+//		- if NO constructors are supplied, Java makes a no-arg default constructors
+//	- better to make 'getter' and 'setter' methods than to make variable public
+//		- this allows the API to change, but the user to use it the same
+//	- use '@Override' then method itself to recreate a method
+	@Override
+	public String toString(){ 		//overrides original toString method, and allows tweaking of it
+		//...
+	}
+	@Override								//SHOULD ALSO OVERRIDE HASHCODE (didn't in this case)
+	public boolean equals(Object obj){		//redefines what equals means for this class
+		//test if 'this' is the same as 'obj' by some method
+	}
+
+//Parameters
+//	- when a method is called: 
+//		- new stack frame is added to stack
+//		- parameters are defined on the stack frame
+//		- value in each argument is assigned to its parameter
+//	- parameters vs arguments:
+//		- each variable in a method definition is a parameter
+//		- each variable in a method call is an argument
+//	- each argument passed to a method tries to create an alias
+//		- for primitives, just copies value, for reference, it mutates values
 	
